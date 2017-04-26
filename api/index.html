@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://code.jquery.com/jquery-3.2.0.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
+  <title>Mes projets</title>
+  
+</head>
+
+<body>
+<div id="conteneurA">
+<header>
+      <p>Back-office de l'API fil-rouge</p>
+      <img src="icon.png">
+</header>
+</div>
+<!-- administration -->
+<div id="conteneurB">
+<form  action="http://matera.chalon.codeur.online/apiProjetIonic2/api.php" method="post" enctype="multipart/form-data">
+    <h1>Ajout d'un projet</h1>
+
+  <label for="titre">Titre :</label><br>
+  <input name="titre" id="titre" type="text">
+  <br><br>
+
+  <label for="description">Description :</label><br>
+  <textarea name="description" id="description" type="text"></textarea>
+  <br><br>
+
+  <label for="img">Image :</label><br>
+  <input type="file" name="img"  id="img">
+  <br><br>
+
+  <label for="url_projet">URL du projet :</label><br>
+  <input name="url_projet" id="url_projet" type="text">
+  <br><br>
+  
+  <label for="url_github">URL GitHub :</label><br>
+  <input name="url_github" id="url_github" type="text">
+  <br><br>
+
+  <label for="participants">Participants :</label><br>
+  <textarea name="participants" id="participants" type="text"></textarea>
+  <br><br>
+
+  <label for="date_projet">date_projet :</label><br>
+  <input name="date_projet" id="date_projet" type="text">
+  <br><br>
+
+  <input id="bouton" type="submit" name="publier" value="Publier">
+  
+  <br><br>
+  <br><br><br>
+
+  
+    <h2>Supression d'un projet</h2>
+  <label for="titre"> Titre du projet : </label>
+  <select id="nom_projetSuppr" name="supprimer"></select>
+  <!-- <input name="nom_projet" id="nom_projet" type="text"> -->
+  <input type="submit" id="supprimer" name="supprimer" value="Supprimer">
+    <br><br><br>  <br><br><br>
+</form>
+</div>
+<script>
+
+// Pour l'affichage des projets dans le select.
+$(document).ready(function () {
+  $.ajax({
+    type: 'GET',
+    url: 'http://matera.chalon.codeur.online/apiProjetIonic2/api.php',
+    success: function (data) {
+      var projets = JSON.parse(data);
+      for (var i = 0; i < projets.length; i++) {
+        document.getElementById('nom_projetSuppr').innerHTML +='<option value="'+ projets[i].titre +'">'+ projets[i].titre +'</option>';
+
+        }
+      }
+    });
+  });
+
+
+// suppression
+  $('#supprimer').on('click',function(e) {
+    e.preventDefault();
+    var titre = document.getElementById('nom_projetSuppr').value;
+    var infos = {
+      infos : {
+        titre: titre
+      }
+    }
+    $.ajax({
+      method: "DELETE",
+      url: "http://matera.chalon.codeur.online/apiProjetIonic2/api.php",
+      contentType :'application/json',
+      data:JSON.stringify(infos),
+      success: function(msg) {
+    }
+  });
+});
+</script>
+
+<div id="result"></div>
+
+<script>
+$(document).ready(function () {
+  $.ajax({
+    type: 'GET',
+    url: 'http://matera.chalon.codeur.online/apiProjetIonic2/api.php',
+    success: function (data) {
+      var projets = JSON.parse(data);
+      for (var i = 0; i < projets.length; i++) {
+        document.getElementById('result').innerHTML +=
+        "<p>" +
+        "<img style='width:320px;' src=''http://matera.chalon.codeur.online/apiProjetIonic2/img/"+ projets[i].img +"' alt='l'image du projet'>" + "<br><br>" +
+        "<b>" + projets[i].titre + "</b><br>" +
+        projets[i].description + "<br><br>" +
+        projets[i].url_projet + "<br>" +
+        projets[i].url_github + "<br>" +
+        projets[i].participants + "<br>" +
+        projets[i].date_projet + "<br>" +
+        "</p><br><br><br><br><br>";
+        }
+    }
+  });
+});
+</script>
+<div id="conteneurC">
+<footer>
+  <p>Projet pensé et construit par Matera Matera pour le passage du titre professionnelle</p>
+</footer>
+</div>
+</body>
+</html>
