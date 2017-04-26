@@ -24,8 +24,8 @@
       <p style="white-space:normal;" [innerHTML]="post.participants"></p>
       <p style="white-space:normal;" [innerHTML]="post.date_projet"></p>    
       <img src ="http://matera.chalon.codeur.online/apiProjetIonic2/img/{{post.img}}" alt="{{post.nom_projet}}">
-      <p style="white-space:normal;" [innerHTML]="post.url_projet"></p>
-      <p style="white-space:normal;" [innerHTML]="post.url_github"></p>
+      <a style="white-space:normal;" [href]="post.url_projet">lien projet</a><br>
+      <a style="white-space:normal;" [href]="post.url_github">lien git</a>
     </ion-item>
 				</ion-list>
      </ion-card-content>
