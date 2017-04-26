@@ -17,12 +17,15 @@
 <ion-card *ngFor="let post of posts">
   <section class="competences">
   	<ion-card-content>
-    <ion-card-title color="light" [innerHTML]="post.nom_projet"></ion-card-title>
+    <ion-card-title color="light" [innerHTML]="post.titre"></ion-card-title>
     		<ion-list>
     <ion-item>
-      <p style="white-space:normal;" [innerHTML]="post.date_projet"></p>
-      <p style="white-space:normal;" [innerHTML]="post.description"></p>      
+      <p style="white-space:normal;" [innerHTML]="post.description"></p>
+      <p style="white-space:normal;" [innerHTML]="post.participants"></p>
+      <p style="white-space:normal;" [innerHTML]="post.date_projet"></p>    
       <img src ="http://matera.chalon.codeur.online/apiProjetIonic2/img/{{post.img}}" alt="{{post.nom_projet}}">
+      <p style="white-space:normal;" [innerHTML]="post.url_projet"></p>
+      <p style="white-space:normal;" [innerHTML]="post.url_github"></p>
     </ion-item>
 				</ion-list>
      </ion-card-content>
